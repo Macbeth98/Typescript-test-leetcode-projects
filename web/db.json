@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Neue",
+      "age": 10
+    },
+    {
+      "name": "New Record 2",
+      "age": 1,
+      "id": 2
+    },
+    {
+      "name": "Mani",
+      "age": 20,
+      "id": 3
+    },
+    {
+      "name": "MANI",
+      "age": 20,
+      "id": 4
+    }
+  ]
+}
