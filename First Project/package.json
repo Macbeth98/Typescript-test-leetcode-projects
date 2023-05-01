@@ -1,7 +1,6 @@
 {
   "name": "first-project",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,9 +8,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/node": "^16.4.13"
-  }
+  },
+  "keywords": [],
+  "description": ""
 }
