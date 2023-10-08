@@ -96,13 +96,115 @@ var threeSum = function (nums) {
         right--;
 
         prevB = b;
-        prevC = c;
       } else if (sum < 0) {
         left++;
       } else {
         right--;
       }
     }
+  }
+
+  return triplets;
+};
+
+var threeSum2 = function (nums) {
+  if (nums.length < 3) return [];
+
+  nums.sort((a, b) => a - b);
+
+  const triplets = [];
+
+  for (let i = 0; i <= nums.length - 3; i++) {
+    let a = nums[i];
+
+    if (a > 0) break;
+
+    if (a === nums[i - 1]) continue;
+
+    let target = -a;
+
+    let left = i + 1;
+    let right = nums.length - 1;
+
+    while (left < right) {
+      let b = nums[left];
+      let c = nums[right];
+
+      let sum = b + c;
+
+      if (sum === target) {
+        triplets.push([a, b, c]);
+        left++;
+        right--;
+
+        while (left < right && nums[left] === nums[left - 1]) {
+          left++;
+        }
+      } else if (sum < target) {
+        left++;
+      } else {
+        right--;
+      }
+    }
+  }
+
+  return triplets;
+};
+
+console.log(threeSum2([-1, 0, 1, 2, -1, -4])); // [[-1,-1,2],[-1,0,1]]
+console.log(threeSum2([0, 1, 1])); // []
+console.log(threeSum2([0, 0, 0])); // [[0,0,0]]
+console.log(threeSum2([3, -2, 1, 0])); // []
+
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSumNoDuplicates = function (nums) {
+  let map = {};
+
+  for (const num of nums) {
+    map[num] = map[num] + 1 || 1;
+  }
+
+  let triplets = [];
+  let triplets_hash = {};
+
+  let target = 0;
+
+  let a, b, c;
+
+  let left = 0;
+  let right = 1;
+
+  while (right < nums.length) {
+    b = nums[left];
+    c = nums[right];
+
+    a = target - (b + c);
+
+    let count = map[a];
+
+    if (count) {
+      if (a === b) count--;
+      if (a === c) count--;
+
+      if (count < 1) {
+        left++;
+        right++;
+        continue;
+      }
+
+      let triplet = [a, b, c];
+      let triplet_hash = triplet.sort().join(',');
+      if (!triplets_hash[triplet_hash]) {
+        triplets_hash[triplet_hash] = 1;
+        triplets.push(triplet);
+      }
+    }
+
+    left++;
+    right++;
   }
 
   return triplets;

@@ -48,3 +48,59 @@ var longestConsecutive = function (nums) {
 };
 
 console.log(longestConsecutive([100, 4, 200, 1, 3, 2]));
+
+// Method 2: Similar but negative
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestConsecutive = function (nums) {
+  const set = new Set(nums);
+
+  let longest = 0;
+
+  if (nums.length === 0) return longest;
+
+  if (nums.length === 1) {
+    return 1;
+  }
+
+  longest = 1;
+
+  for (const num of nums) {
+    if (set.has(num - 1)) {
+      length = 2;
+      while (set.has(num - length)) {
+        length++;
+      }
+
+      longest = Math.max(longest, length);
+    }
+  }
+
+  return longest;
+};
+
+// Method 3: Union Find
+// /**
+//  * @param {number[]} nums
+//  * @return {number}
+//  */
+
+var longestConsecutive = function (nums) {
+  const uf = new UnionFind(nums);
+  const map = new Map();
+
+  for (const num of nums) {
+    uf.union(num, num + 1);
+  }
+
+  let longest = 0;
+
+  for (const num of nums) {
+    longest = Math.max(longest, uf.find(num) - num + 1);
+  }
+
+  return longest;
+};

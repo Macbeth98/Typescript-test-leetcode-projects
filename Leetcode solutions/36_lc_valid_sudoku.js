@@ -32,8 +32,7 @@ var isValidSudoku = function (board) {
     for (let j = 0; j < 9; j++) {
       let row = board[i][j];
       let col = board[j][i];
-      let box =
-        board[3 * Math.floor(i / 3) + Math.floor(j / 3)][3 * (i % 3) + (j % 3)];
+      let box = board[3 * Math.floor(i / 3) + Math.floor(j / 3)][3 * (i % 3) + (j % 3)];
 
       if (row !== '.') {
         if (rowSet.has(row)) {
@@ -59,6 +58,67 @@ var isValidSudoku = function (board) {
         }
       }
     }
+  }
+
+  return true;
+};
+
+// Method2: It is everthung same as above except the way of calculating box indexes
+
+/**
+ * @param {character[][]} board
+ * @return {boolean}
+ */
+isValidSudoku = function (board) {
+  const rowSet = new Set();
+  const colSet = new Set();
+  const boxSet = new Set();
+
+  let i = 0;
+  let j = 0;
+  let boxi;
+  let boxj;
+
+  const boardSize = 9;
+  const boxSize = 3;
+
+  const nonValue = '.';
+
+  while (i < boardSize) {
+    boxi = Math.floor(i / boxSize) * boxSize;
+    boxj = (i % boxSize) * boxSize;
+
+    let loopBoxj = boxj;
+
+    for (j = 0; j < boardSize; j++) {
+      let row = board[i][j];
+      let col = board[j][i];
+      let box;
+
+      box = board[boxi][boxj];
+
+      if (rowSet.has(row)) return false;
+      else if (row !== nonValue) rowSet.add(row);
+
+      if (colSet.has(col)) return false;
+      else if (col !== nonValue) colSet.add(col);
+
+      if (boxSet.has(box)) return false;
+      else if (box !== nonValue) boxSet.add(box);
+
+      boxj++;
+
+      if (boxj % boxSize === 0) {
+        boxi++;
+        boxj = loopBoxj;
+      }
+    }
+
+    i++;
+
+    rowSet.clear();
+    colSet.clear();
+    boxSet.clear();
   }
 
   return true;
